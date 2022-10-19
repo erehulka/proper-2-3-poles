@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+graph.g6
+graph.png
+vysledok.txt
+
+*.out*
