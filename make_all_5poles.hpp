@@ -80,10 +80,11 @@ Multipole create_by_removing_1_vertex_and_edge(Graph &g, struct graph_props_to_d
 
 std::vector<multipole_creation> create_all_multipoles_by_removing_1_vertex_1_edge(Graph &g, graph_props_to_delete &props) {
     std::vector<multipole_creation> result;
+    result.reserve((max_number(g).to_int() + 1) * (g.size() - 3));
 
     if (props.vertices.size() == 1) {
-        for (int i = 0; i < max_number(g); i++) {
-            for (int j = i+1; j < max_number(g); j++) {
+        for (int i = 0; i <= max_number(g); i++) {
+            for (int j = i+1; j <= max_number(g); j++) {
                 if (!g.contains(Location(i, j))) continue;
                 add_edge_to_gprops(props, i, j);
 
@@ -101,7 +102,7 @@ std::vector<multipole_creation> create_all_multipoles_by_removing_1_vertex_1_edg
             }
         }
     } else {
-        for (int i = 0; i < max_number(g); i++) {
+        for (int i = 0; i <= max_number(g); i++) {
             add_vertex_to_gprops(props, i);
 
             std::vector<multipole_creation> recursiveResult = create_all_multipoles_by_removing_1_vertex_1_edge(g, props);
