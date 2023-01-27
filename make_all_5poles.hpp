@@ -24,9 +24,11 @@ struct multipole_creation {
     bool isColorable;
     bool isPerfect;
     std::vector<std::vector<int>> possible_colourings;
+    std::pair<int, int> distances;
+
 
     multipole_creation() = delete;
-    multipole_creation(Graph &g, Multipole &m, Graph &g_original, graph_props_to_delete &props, std::string deletion_m) {
+    multipole_creation(Graph &g, Multipole &m, Graph &g_original, graph_props_to_delete &props) {
         this->g = write_graph6(g, false);
         this->m = &m;
 
@@ -41,6 +43,12 @@ struct multipole_creation {
         std::pair<bool, std::vector<std::vector<int>>> perfect_result = is_perfect(g, m);
         this->isPerfect = perfect_result.first;
         this->possible_colourings = perfect_result.second;
+
+        std::pair<int, int> distances_t(
+                ba_graph::distance(g_original, props_t.vertices[0], props_t.locs[0].n1()),
+                ba_graph::distance(g_original, props_t.vertices[0], props_t.locs[0].n2())
+                );
+        this->distances = distances_t;
     }
 };
 
@@ -71,7 +79,7 @@ std::vector<multipole_creation> create_all_multipoles_by_removing_1_vertex_1_edg
                     Multipole m = create_by_removing_1_vertex_and_edge(gCopy,props);
 
                     Graph g_original = copy_identical(g);
-                    result.push_back(multipole_creation(gCopy, m, g_original, props, "1_edge_1_vertex"));
+                    result.push_back(multipole_creation(gCopy, m, g_original, props));
                 } catch (const std::exception &e) {
                     // no action
                 }
