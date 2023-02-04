@@ -6,34 +6,12 @@
 #include "make_all_5poles.hpp"
 #include "create_snarks.hpp"
 
+#include "utils/file_write.hpp"
+#include "utils/file_parser.hpp"
+
 #include <sys/stat.h>
 
 using namespace ba_graph;
-
-void write_to_file(std::vector<multipole_creation> &result, const std::string output_file) {
-    std::ofstream output(output_file);
-    std::cout << output_file << std::endl;
-    if (output.is_open()) {
-        output << result[0].g_original << std::endl;
-        for (const auto &oneRes : result) {
-            output
-//            << oneRes.g
-            << " edges: "
-            << oneRes.props.locs
-            << ", vertices: "
-            << oneRes.props.vertices
-            << ", colourable: "
-            << oneRes.isColorable
-            << ", perfect: "
-            << oneRes.isPerfect
-            << ", possible colourings: "
-            << oneRes.possible_colourings
-            << ", distances: "
-            << oneRes.distances
-            << std::endl;
-        }
-    } else std::cerr << "Unable to open file" << std::endl;
-}
 
 void check_all_possibilities_for_graph(Graph &g) {
     graph_props_to_delete props;
@@ -52,8 +30,13 @@ void check_all_possibilities_for_graph(Graph &g) {
 int main() {
     mkdir("outputs", 0777);
 
-    Graph g = create_blanusa_first();
-    check_all_possibilities_for_graph(g);
+    std::vector<Graph> graphs = generate_graphs_from_file("./inputs/Generated_graphs.20.05.sn.cyc4.g6");
+    for (int i = 0; i < graphs.size(); i++) {
+        check_all_possibilities_for_graph(graphs[i]);
+    }
+
+    //Graph g = create_blanusa_first();
+    //check_all_possibilities_for_graph(g);
 
     /*std::vector<std::pair<int, int>> temp;
     std::vector<std::vector<std::pair<int, int>>> possible = get_possible_recursive(temp);

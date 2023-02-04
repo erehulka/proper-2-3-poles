@@ -12,7 +12,7 @@
 #include <snarks.hpp>
 
 #include "create_multipole_deg6.hpp"
-#include "pole_is_perfect.hpp"
+#include "utils/pole_is_perfect.hpp"
 
 using namespace ba_graph;
 
@@ -24,7 +24,6 @@ struct multipole_creation {
     bool isColorable;
     bool isPerfect;
     std::vector<std::vector<int>> possible_colourings;
-    std::pair<int, int> distances;
 
 
     multipole_creation() = delete;
@@ -43,12 +42,6 @@ struct multipole_creation {
         std::pair<bool, std::vector<std::vector<int>>> perfect_result = is_perfect(g, m);
         this->isPerfect = perfect_result.first;
         this->possible_colourings = perfect_result.second;
-
-        std::pair<int, int> distances_t(
-                ba_graph::distance(g_original, props_t.vertices[0], props_t.locs[0].n1()),
-                ba_graph::distance(g_original, props_t.vertices[0], props_t.locs[0].n2())
-                );
-        this->distances = distances_t;
     }
 };
 

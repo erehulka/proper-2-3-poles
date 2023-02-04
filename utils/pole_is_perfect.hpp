@@ -3,31 +3,19 @@
 
 #include <map>
 
-#include "implementation.h"
+#include "../implementation.h"
 #include <graphs.hpp>
 #include <invariants.hpp>
 #include <multipoles.hpp>
 
 using namespace ba_graph;
 
-/*const std::vector<std::vector<int>> colourings = {
-        {1,2,3,3,3},
-        {1,2,2,2,3},
-        {1,2,2,3,2},
-        {1,2,3,2,2},
-        {1,2,1,1,3},
-        {1,2,1,3,1},
-        {1,2,3,1,1}
-};*/
-
+// all colourings are in format (a1,a2,b1,b2,b3)
 const std::vector<std::vector<int>> colourings = {
         {0,1,2,2,2},
-        {0,1,1,1,2},
-        {0,1,1,2,1},
         {0,1,2,1,1},
-        {0,1,0,0,2},
-        {0,1,0,2,0},
-        {0,1,2,0,0}
+        {0,1,1,2,1},
+        {0,1,1,1,2},
 };
 
 std::pair<bool, std::vector<std::vector<int>>> is_perfect(Graph &g, Multipole &m) {
@@ -42,6 +30,10 @@ std::pair<bool, std::vector<std::vector<int>>> is_perfect(Graph &g, Multipole &m
 
     // when we remove isomorphic colourings:
     // 12113, 12131, 12223, 12232, 12311, 12322, 12333,
+
+    // according to Preismann we just need to check for these colourings:
+    // (because there is no vertex with degree 1)
+    // 01222, 01211, 01121, 01112
     std::map<Edge, int> preColouring;
     bool isPerfect = true;
     std::vector<std::vector<int>> possible_colourings;
