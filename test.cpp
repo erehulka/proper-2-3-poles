@@ -2,9 +2,9 @@
 #include <algorithms/isomorphism/isomorphism.hpp>
 #include <snarks/colouring_cvd.hpp>
 
-#include "create_multipole_deg6.hpp"
-#include "make_all_5poles.hpp"
-#include "create_snarks.hpp"
+#include "multipole_creator/create_multipole_deg6.hpp"
+#include "multipole_creator/make_all_5poles.hpp"
+#include "snarks/create_snarks.hpp"
 
 #include "utils/file_write.hpp"
 #include "utils/file_parser.hpp"

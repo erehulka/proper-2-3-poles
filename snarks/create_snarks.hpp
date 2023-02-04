@@ -1,4 +1,4 @@
-#include "implementation.h"
+#include "../implementation.h"
 #include <graphs.hpp>
 
 using namespace ba_graph;

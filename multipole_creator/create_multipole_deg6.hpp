@@ -12,8 +12,8 @@
 #include <graphs.hpp>
 #include <multipoles.hpp>
 
-#include "implementation.h"
-#include "utils/connector_validator.hpp"
+#include "../implementation.h"
+#include "../multipoles/connector_validator.hpp"
 
 using namespace ba_graph;
 

@@ -5,14 +5,14 @@
 #include <vector>
 #include <utility>
 
-#include "implementation.h"
+#include "../implementation.h"
 #include <graphs.hpp>
 #include <multipoles.hpp>
 #include <invariants.hpp>
 #include <snarks.hpp>
 
-#include "create_multipole_deg6.hpp"
-#include "utils/pole_is_perfect.hpp"
+#include "../multipole_creator/create_multipole_deg6.hpp"
+#include "../multipoles/pole_is_perfect.hpp"
 
 using namespace ba_graph;
 
