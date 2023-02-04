@@ -1,4 +1,4 @@
-BA_GRAPH_PATH = /Users/erehulka/Documents/Informatika/ZIMA2/RP/ba-graph
+BA_GRAPH_PATH = /Users/erehulka/Documents/Informatika/Bakalarka/alg/ba-graph
 CFLAGS = -std=c++17 -fconcepts -I$(BA_GRAPH_PATH)/include
 LDFLAGS = -lstdc++fs -lcurl
 DBGFLAGS = -g -O0 -pedantic

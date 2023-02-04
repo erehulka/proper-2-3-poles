@@ -11,7 +11,7 @@
 #include <invariants.hpp>
 #include <snarks.hpp>
 
-#include "../snark_multipoles_deg_6.nosync/create_multipole_deg6.hpp"
+#include "create_multipole_deg6.hpp"
 #include "pole_is_perfect.hpp"
 
 using namespace ba_graph;
