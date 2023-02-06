@@ -15,6 +15,12 @@
 
 using namespace ba_graph;
 
+/*
+ * !!!!
+ * Toto sú funkcie ešte z ročníkového projektu, v bakalárke sa nič nevyužíva.
+ * !!!!
+ * */
+
 struct multipole_creation {
     std::string g;
     Multipole *m;

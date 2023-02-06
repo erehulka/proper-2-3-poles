@@ -27,10 +27,18 @@ void check_all_possibilities_for_graph(Graph &g) {
     write_to_file(result, outputFile);
 }
 
-int main() {
+int main(int argc, char **argv) {
     mkdir("outputs", 0777);
 
-    std::vector<Graph> graphs = generate_graphs_from_file("./inputs/Generated_graphs.20.05.sn.cyc4.g6");
+    if (argc != 2) {
+        std::cerr << "Name of the input file must be passed" << std::endl;
+        return 1;
+    }
+
+    std::string path("./inputs/");
+    std::string fileName(argv[1]);
+
+    std::vector<Graph> graphs = generate_graphs_from_file(path + fileName);
     for (int i = 0; i < graphs.size(); i++) {
         check_all_possibilities_for_graph(graphs[i]);
     }

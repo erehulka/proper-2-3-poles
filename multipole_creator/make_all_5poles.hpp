@@ -1,5 +1,5 @@
-#ifndef MULTIPOLE_CREATOR_HPP
-#define MULTIPOLE_CREATOR_HPP
+#ifndef MAKE_ALL_5_POLES_HPP
+#define MAKE_ALL_5_POLES_HPP
 
 #include <iostream>
 #include <vector>
