@@ -1,6 +1,7 @@
 #include "implementation.h"
 #include <algorithms/isomorphism/isomorphism.hpp>
 #include <snarks/colouring_cvd.hpp>
+#include <snarks/colouring.hpp>
 
 #include "multipole_creator/create_multipole_deg6.hpp"
 #include "multipole_creator/make_all_5poles.hpp"
@@ -23,8 +24,9 @@ void check_all_possibilities_for_graph(Graph &g) {
 
     std::cout << result.size() << std::endl;
 
-    std::string outputFile = "./outputs/" + write_graph6(g, false) + ".txt";
-    write_to_file(result, outputFile);
+    std::vector<std::pair<Number, Number>> removable_vertices = removable_pairs_vertices<HeuristicsColouriser>(g);
+    std::string outputFile = "./outputs/" + write_graph6(g, false) + ".csv";
+    write_to_file(result, outputFile, removable_vertices);
 }
 
 int main(int argc, char **argv) {
@@ -39,8 +41,8 @@ int main(int argc, char **argv) {
     std::string fileName(argv[1]);
 
     std::vector<Graph> graphs = generate_graphs_from_file(path + fileName);
-    for (int i = 0; i < graphs.size(); i++) {
-        check_all_possibilities_for_graph(graphs[i]);
+    for (auto & graph : graphs) {
+        check_all_possibilities_for_graph(graph);
     }
 
     //Graph g = create_blanusa_first();
