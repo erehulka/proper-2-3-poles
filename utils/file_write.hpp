@@ -16,10 +16,14 @@ void write_to_file(
 ) {
     std::ofstream output(output_file);
     if (output.is_open()) {
-        output << "edges;vertices;colourable;perfect;possible colourings;colourings size;colourings class;distance;vertices at least one removable;vertices both removable" << std::endl;
+        output
+            << "edges;vertices;colourable;perfect;possible colourings;colourings size;"
+            << "colourings class;distance;vertices at least one removable;vertices both removable;removable_edges"
+            << std::endl;
         for (const auto &oneRes : result) {
             bool firstRemovable = pair_vertices_removable(oneRes.props.vertices[0], oneRes.props.locs[0].n1(), removable_vertices);
             bool secondRemovable = pair_vertices_removable(oneRes.props.vertices[0], oneRes.props.locs[0].n2(), removable_vertices);
+            int removable_edges_n = edges_removable_from_23_pole(oneRes.props.locs[0], oneRes.props.vertices[0], removable_edges, g);
 
             output
                 << oneRes.props.locs
@@ -41,6 +45,8 @@ void write_to_file(
                 << (firstRemovable || secondRemovable)
                 << ";"
                 << (firstRemovable && secondRemovable)
+                << ";"
+                << removable_edges_n
                 << std::endl;
         }
     } else std::cerr << "Unable to open file" << std::endl;
