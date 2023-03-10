@@ -26,8 +26,9 @@ void check_all_possibilities_for_graph(Graph &g) {
     //std::cout << result.size() << std::endl;
 
     std::vector<std::pair<Number, Number>> removable_vertices = removable_pairs_vertices<HeuristicsColouriser>(g);
+    std::vector<std::pair<Location, Location>> removable_edges = removable_pairs_edges<HeuristicsColouriser>(g);
     std::string outputFile = "./outputs/" + write_graph6(g, false) + ".csv";
-    write_to_file(result, outputFile, removable_vertices, g);
+    write_to_file(result, outputFile, removable_vertices, removable_edges, g);
 }
 
 int main(int argc, char **argv) {
