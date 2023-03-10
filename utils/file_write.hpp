@@ -2,17 +2,19 @@
 #include <graphs.hpp>
 #include <algorithm>
 #include "./colorings.hpp"
+#include "./distance.hpp"
 
 using namespace ba_graph;
 
 void write_to_file(
     std::vector<multipole_creation> &result,
     const std::string& output_file,
-    const std::vector<std::pair<Number, Number>>& removable_vertices
+    const std::vector<std::pair<Number, Number>>& removable_vertices,
+    Graph &g
 ) {
     std::ofstream output(output_file);
     if (output.is_open()) {
-        output << "edges;vertices;colourable;perfect;possible colourings;colourings size;colourings class;vertices at least one removable" << std::endl;
+        output << "edges;vertices;colourable;perfect;possible colourings;colourings size;colourings class;distance;vertices at least one removable" << std::endl;
         for (const auto &oneRes : result) {
             bool removable = false;
             std::pair<Number, Number> removable_one;
@@ -47,6 +49,8 @@ void write_to_file(
                 << oneRes.possible_colourings.size()
                 << ";"
                 << translate_colouring_to_class(oneRes.possible_colourings)
+                << ";"
+                << distanceVertexEdge(oneRes.props.vertices[0], oneRes.props.locs[0], g)
                 << ";"
                 << removable
                 << std::endl;

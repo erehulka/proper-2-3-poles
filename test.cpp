@@ -18,15 +18,16 @@ void check_all_possibilities_for_graph(Graph &g) {
     graph_props_to_delete props;
 
     // How many multipoles there should be
-    std::cout << (max_number(g).to_int() + 1) * (g.size() - 3) << std::endl;
+    //std::cout << (max_number(g).to_int() + 1) * (g.size() - 3) << std::endl;
+    std::cout << write_graph6(g, false) << std::endl;
 
     std::vector<multipole_creation> result = create_all_multipoles_by_removing_1_vertex_1_edge(g,props);
 
-    std::cout << result.size() << std::endl;
+    //std::cout << result.size() << std::endl;
 
     std::vector<std::pair<Number, Number>> removable_vertices = removable_pairs_vertices<HeuristicsColouriser>(g);
     std::string outputFile = "./outputs/" + write_graph6(g, false) + ".csv";
-    write_to_file(result, outputFile, removable_vertices);
+    write_to_file(result, outputFile, removable_vertices, g);
 }
 
 int main(int argc, char **argv) {

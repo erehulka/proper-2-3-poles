@@ -19,7 +19,7 @@ using namespace ba_graph;
 struct multipole_creation {
     std::string g;
     Multipole *m;
-    std::string g_original;
+    Graph *g_original;
     graph_props_to_delete props;
     bool isColorable;
     bool isPerfect;
@@ -31,7 +31,7 @@ struct multipole_creation {
         this->g = write_graph6(g, false);
         this->m = &m;
 
-        this->g_original = write_graph6(g_original, false);
+        this->g_original = &g_original;
 
         graph_props_to_delete props_t;
         props_t.vertices = std::vector<Number>(props.vertices);
@@ -72,7 +72,7 @@ std::vector<multipole_creation> create_all_multipoles_by_removing_1_vertex_1_edg
                     Multipole m = create_by_removing_1_vertex_and_edge(gCopy,props);
 
                     Graph g_original = copy_identical(g);
-                    result.push_back(multipole_creation(gCopy, m, g_original, props));
+                    result.emplace_back(gCopy, m, g_original, props);
                 } catch (const std::exception &e) {
                     // no action
                 }
