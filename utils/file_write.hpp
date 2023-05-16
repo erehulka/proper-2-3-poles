@@ -4,6 +4,7 @@
 #include "./colorings.hpp"
 #include "./distance.hpp"
 #include "./removability.hpp"
+#include <invariants/girth.hpp>
 
 using namespace ba_graph;
 
@@ -17,40 +18,28 @@ void write_to_file(
     std::ofstream output(output_file);
     if (output.is_open()) {
         output
-            << "edges;vertices;colourable;perfect;possible colourings;colourings size;"
-            << "colourings class;distance;vertices at least one removable;vertices both removable;removable_edges;"
-            << "essential edges"
+            << "graph6;edge;vertex;colourings_class;"
+            << "distance;removable_vertices;removable_edges"
             << std::endl;
         for (const auto &oneRes : result) {
-            bool firstRemovable = pair_vertices_removable(oneRes.props.vertices[0], oneRes.props.locs[0].n1(), removable_vertices);
-            bool secondRemovable = pair_vertices_removable(oneRes.props.vertices[0], oneRes.props.locs[0].n2(), removable_vertices);
+            int firstRemovable = (int) pair_vertices_removable(oneRes.props.vertices[0], oneRes.props.locs[0].n1(), removable_vertices);
+            int secondRemovable = (int) pair_vertices_removable(oneRes.props.vertices[0], oneRes.props.locs[0].n2(), removable_vertices);
             int removable_edges_n = edges_removable_from_23_pole(oneRes.props.locs[0], oneRes.props.vertices[0], removable_edges, g);
-            int essential_edges = edges_essential_in_23_pole(oneRes.props.locs[0], oneRes.props.vertices[0], removable_edges, g);
 
             output
-                << oneRes.props.locs
+                << oneRes.g
                 << ";"
-                << oneRes.props.vertices
+                << oneRes.props.locs[0].n1() << ", " << oneRes.props.locs[0].n2()
                 << ";"
-                << oneRes.isColorable
-                << ";"
-                << oneRes.isPerfect
-                << ";"
-                << oneRes.possible_colourings
-                << ";"
-                << oneRes.possible_colourings.size()
+                << oneRes.props.vertices[0]
                 << ";"
                 << translate_colouring_to_class(oneRes.possible_colourings)
                 << ";"
                 << distanceVertexEdge(oneRes.props.vertices[0], oneRes.props.locs[0], g)
                 << ";"
-                << (firstRemovable || secondRemovable)
-                << ";"
-                << (firstRemovable && secondRemovable)
+                << (firstRemovable + secondRemovable)
                 << ";"
                 << removable_edges_n
-                << ";"
-                << essential_edges
                 << std::endl;
         }
     } else std::cerr << "Unable to open file" << std::endl;

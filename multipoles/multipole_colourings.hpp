@@ -1,5 +1,5 @@
-#ifndef POLE_IS_PERFECT_HPP
-#define POLE_IS_PERFECT_HPP
+#ifndef MULTIPOLE_COLOURING_HPP
+#define MULTIPOLE_COLOURING_HPP
 
 #include <map>
 
@@ -18,7 +18,7 @@ const std::vector<std::vector<int>> colourings = {
         {0,1,1,1,2},
 };
 
-std::pair<bool, std::vector<std::vector<int>>> is_perfect(Graph &g, Multipole &m) {
+std::vector<std::vector<int>> get_colourings(Graph &g, Multipole &m) {
     // all possible colourings are (for a1, a2, b1, b2, b3):
     // [[1 2 1 1 3] [1 2 1 3 1] [1 2 2 2 3] [1 2 2 3 2] [1 2 3 1 1] [1 2 3 2 2]
     // [1 2 3 3 3] [1 3 1 1 2] [1 3 1 2 1] [1 3 2 1 1] [1 3 2 2 2] [1 3 2 3 3] [1 3 3 2 3]
@@ -35,7 +35,6 @@ std::pair<bool, std::vector<std::vector<int>>> is_perfect(Graph &g, Multipole &m
     // (because there is no vertex with degree 1)
     // 01222, 01211, 01121, 01112
     std::map<Edge, int> preColouring;
-    bool isPerfect = true;
     std::vector<std::vector<int>> possible_colourings;
 
     for (auto colouring : colourings) {
@@ -53,14 +52,12 @@ std::pair<bool, std::vector<std::vector<int>>> is_perfect(Graph &g, Multipole &m
             preColouring[e] = colouring[i+2];
         }
 
-        if (!is_edge_colourable_basic(gCopy, 3, preColouring)) {
-            isPerfect = false;
-        } else {
+        if (is_edge_colourable_basic(gCopy, 3, preColouring)) {
             possible_colourings.push_back(colouring);
         }
     }
 
-    return {isPerfect, possible_colourings};
+    return possible_colourings;
 }
 
 #endif

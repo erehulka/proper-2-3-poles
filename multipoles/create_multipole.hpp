@@ -1,8 +1,5 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "modernize-return-braced-init-list"
-
-#ifndef CREATE_MULTIPOLE_DEG_6
-#define CREATE_MULTIPOLE_DEG_6
+#ifndef CREATE_MULTIPOLE
+#define CREATE_MULTIPOLE
 
 #include <vector>
 #include <string>
@@ -13,7 +10,7 @@
 #include <multipoles.hpp>
 
 #include "../implementation.h"
-#include "../multipoles/connector_validator.hpp"
+#include "connector_validator.hpp"
 
 using namespace ba_graph;
 
@@ -21,12 +18,6 @@ struct graph_props_to_delete {
   std::vector<Location> locs;
   std::vector<Number> vertices;
 };
-
-/**
- * Functions to modify struct graph_props_to_delete
- * Add edge, vertex, or clear all data from it.
- * TODO add these modifiers to different file, folder utils
- */
 
 void add_edge_to_gprops(struct graph_props_to_delete &props, int from, int to) {
     props.locs.emplace_back(from, to);
@@ -96,17 +87,4 @@ Connector remove_vertex(Graph &g, Number &vertex) {
     return Connector(connecting_vertices);
 }
 
-/**
- * Simple function to check if vertices in graph props form a path in given graph.
- */
-bool is_path(const Graph &g, const struct graph_props_to_delete &props) {
-    for (int i = 0; i < (props.vertices.size() - 1); i++) {
-        if (!g.contains( Location(props.vertices[i], props.vertices[i+1]) ))
-            return false;
-    }
-    return true;
-}
-
 #endif
-
-#pragma clang diagnostic pop

@@ -11,8 +11,8 @@
 #include <invariants.hpp>
 #include <snarks.hpp>
 
-#include "../multipole_creator/create_multipole_deg6.hpp"
-#include "../multipoles/pole_is_perfect.hpp"
+#include "../multipoles/create_multipole.hpp"
+#include "../multipoles/multipole_colourings.hpp"
 
 using namespace ba_graph;
 
@@ -21,8 +21,6 @@ struct multipole_creation {
     Multipole *m;
     Graph *g_original;
     graph_props_to_delete props;
-    bool isColorable;
-    bool isPerfect;
     std::vector<std::vector<int>> possible_colourings;
 
 
@@ -37,11 +35,9 @@ struct multipole_creation {
         props_t.vertices = std::vector<Number>(props.vertices);
         props_t.locs = std::vector<Location>(props.locs);
         this->props = props_t;
-        this->isColorable = is3EdgeColourable_cvd(g);
 
-        std::pair<bool, std::vector<std::vector<int>>> perfect_result = is_perfect(g, m);
-        this->isPerfect = perfect_result.first;
-        this->possible_colourings = perfect_result.second;
+        std::vector<std::vector<int>> perfect_result = get_colourings(g, m);
+        this->possible_colourings = perfect_result;
     }
 };
 

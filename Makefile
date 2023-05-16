@@ -8,10 +8,21 @@ COMPILE_DBG = g++-12 -O2 $(CFLAGS) $(DBGFLAGS)
 copy_implementation:
 	cp $(BA_GRAPH_PATH)/test/implementation_basic.h implementation.h
 all: copy_implementation compile_test
+
+mkdirs:
+	- mkdir outputs
+	- mkdir outputs_bicritical
+
 compile_test:
 	$(COMPILE_DBG) test.cpp -o test.out $(LDFLAGS)
 
 clean:
 	rm -rf *.out
+
+run_all_inputs:
+	ls inputs/ | xargs -I{} ./test.out ./inputs/{} "./outputs/"
+
+run_all_bicritical_inputs:
+	ls inputs_bicritical/ | xargs -I{} ./test.out ./inputs_bicritical/{} "./outputs_bicritical/"
 
 .PHONY: clean all copy_implementation compile_test

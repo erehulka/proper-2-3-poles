@@ -43,20 +43,6 @@ std::vector<std::vector<std::pair<int, int>>> get_possible_recursive(std::vector
     return result;
 }
 
-std::vector<std::vector<int>> translate_colouring(std::vector<std::vector<std::pair<int, int>>> input) {
-    std::vector<std::vector<int>> result;
-    for (auto colouring : input) {
-        std::vector<int> temp_colouring;
-        for (auto colour : colouring) {
-            int colour_final = colour.first * 2 + colour.second;
-            temp_colouring.push_back(colour_final);
-        }
-        result.push_back(temp_colouring);
-    }
-
-    return result;
-}
-
 std::string translate_colouring_to_class(const std::vector<std::vector<int>>& multipole_colourings) {
     std::map<std::vector<std::vector<int>>, std::string> classes{
             {{{0,1,2,2,2},{0,1,2,1,1},{0,1,1,2,1},{0,1,1,1,2}} , "perfect"},
