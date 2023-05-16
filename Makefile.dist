@@ -13,6 +13,8 @@ compile_test:
 mkdirs:
 	- mkdir outputs
 	- mkdir outputs_bicritical
+	- mkdir inputs
+	- mkdir inputs_bicritical
 
 all: copy_implementation mkdirs compile_test
 
