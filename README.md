@@ -18,4 +18,4 @@ This algorithm uses files with graphs in graph6 format, with each graph on a sep
 
 - Run `make run_all_inputs`. This will run the algorithm for each file in the `inputs` folder and save the outputs in the `outputs` folder.
 - Run `make run_all_bicritical_inputs`. This will run the algorithm for each file in the `inputs_bicritical` folder and save the outputs in the `outputs_bicritical` folder.
-- Run `./main.out <input file relative path> "<output directory relative path>"`. This will run the algorithm for the given file and save the outputs in the provided output directory. For example, `./main.out ./inputs/graph.g6 "./outputs/"`.
+- Run `./main.out <input file relative path> <output directory relative path>`. This will run the algorithm for the given file and save the outputs in the provided output directory. For example, `./main.out ./inputs/graph.g6 ./outputs/`.

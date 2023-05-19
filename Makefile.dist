@@ -19,9 +19,9 @@ mkdirs:
 all: copy_implementation mkdirs compile_test
 
 run_all_inputs:
-	ls inputs/ | xargs -I{} ./main.out ./inputs/{} "./outputs/"
+	ls inputs/ | xargs -I{} ./main.out ./inputs/{} ./outputs/
 
 run_all_bicritical_inputs:
-	ls inputs_bicritical/ | xargs -I{} ./main.out ./inputs_bicritical/{} "./outputs_bicritical/"
+	ls inputs_bicritical/ | xargs -I{} ./main.out ./inputs_bicritical/{} ./outputs_bicritical/
 
 .PHONY: all copy_implementation compile_test mkdirs run_all_inputs run_all_bicritical_inputs
